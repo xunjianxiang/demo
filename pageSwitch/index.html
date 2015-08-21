@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>全屏切换</title>
+	<link rel="stylesheet" href="./index.css">
+</head>
+<body>
+	<div class="pageSwitch-box">
+		<!-- 全屏切换开始 -->
+		<div class="pageSwitch-container">
+			<ul>
+				<li class="pageSwitch-1"></li>
+				<li class="pageSwitch-2"></li>
+				<li class="pageSwitch-3"></li>
+				<li class="pageSwitch-4"></li>
+
+				<!-- <li class="pageSwitch-1"><img src="./image/1.jpg" alt=""></li>
+				<li class="pageSwitch-2"><img src="./image/2.jpg" alt=""></li>
+				<li class="pageSwitch-3"><img src="./image/3.jpg" alt=""></li>
+				<li class="pageSwitch-4"><img src="./image/4.jpg" alt=""></li> -->
+			</ul>
+		</div>
+		<!-- 全屏切换结束 -->
+
+		<!-- 进度框开始 -->
+		<div class="pageSwitch-status">
+			
+		</div>
+		<!-- 进度框结束 -->
+	</div>
+
+	<script src="../jquery-2.1.4.min.js"></script>
+	<script src="./index.js"></script>
+	<script>
+		$(function () {
+			$(".pageSwitch-box").pageSwitch({
+				// "vertical": false,
+				"duration": 600
+			});
+		})
+	</script>
+</body>
+</html>

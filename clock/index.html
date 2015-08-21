@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<title>时钟</title>
+	<link rel='stylesheet' href='index.css'>
+</head>
+<body>
+	<h1>css3仿制时钟</h1>
+	<div id='my-clock'>
+		<ul id='my-clock-ticks'>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+		<ul id='my-clock-times'>
+			<li>12</li>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+			<li>6</li>
+			<li>7</li>
+			<li>8</li>
+			<li>9</li>
+			<li>10</li>
+			<li>11</li>
+		</ul>
+		<ul id='my-clock-hands'>
+			<li class='my-clock-hands-hour'></li>
+			<li class='my-clock-hands-minute'></li>
+			<li class='my-clock-hands-second'></li>
+			<li class='my-clock-hands-origin'></li>
+		</ul>
+	</div>
+	<script src='../jquery-2.1.4.min.js'></script>
+	<script>
+		/* 刻度线描绘开始 */
+		function drawTicks () {
+			var box = $('#my-clock-ticks'),
+				ticks = box.find('li'),
+				radius = box.width() / 2,
+				position = getPosition(radius, 60);
+			for (var i = 0, len = ticks.length; i< len; i++) {
+				var li = $(ticks[i]);
+				li.css('background-color', '#FFF');
+				li.width(2);
+				i % 5 === 0 ? li.height(32) : li.height(16);
+				li.css('left', position[i].left);
+				li.css('top', position[i].top);
+				li.css('transform', 'translate(-50%, -50%) rotate(' + position[i].rotate + 'deg)')
+			}
+		}
+		/* 刻度线描绘结束 */
+
+
+
+		/* 时间描绘开始 */
+		function drawTimes () {
+			var box = $('#my-clock-times'),
+				times = box.find('li'),
+				radius = box.width() / 2,
+				position = getPosition(radius, 12);
+			for (var i = 0, len = times.length; i< len; i++) {
+				var li = $(times[i]);
+				li.css('left', position[i].left);
+				li.css('top', position[i].top);
+			}
+		}
+		/* 时间描绘结束 */
+
+
+		/* 计算园极点坐标开始 */
+		function getPosition (radius, number) {
+			var separateDeg = 360 / number,
+				position = [];
+			for (var i = 0; i < number; i++) {
+				var deg = separateDeg * i * Math.PI / 180,
+					left = radius + radius * Math.sin(deg),
+					top = radius - radius * Math.cos(deg),
+					rotate = 360 / number * i;
+				position.push({
+					left: left,
+					top: top,
+					rotate: rotate
+				})
+			}
+			return position
+		}
+
+		function timeInit () {
+			var date = new Date(),
+				hours = date.getHours(),
+				minutes = date.getMinutes(),
+				seconds = date.getSeconds();
+			handsRotate(hours, minutes, seconds);
+			runTime(hours, minutes, seconds);	
+		}
+		function runTime (hours, minutes, seconds) {
+			setInterval(function () {
+				if(seconds === 59) {
+					seconds = 0;
+					if (minutes === 59) {
+						minutes = 0;
+						if (hours % 12 === 11) {
+							hours = 0;
+						} else {
+							hours ++;
+						}
+					} else {
+						minutes ++;
+					}
+				} else {
+					seconds ++;
+				}
+				handsRotate (hours, minutes, seconds);
+
+			}, 1000)		
+		}
+
+		function handsRotate (hours, minutes, seconds) {
+			var	hours_rotate = (hours % 12) / 12 * 360 + minutes / 720 * 360 - 90,
+				minutes_rotate = minutes / 60 * 360 + seconds / 3600 * 360 - 90,
+				seconds_rotate = seconds / 60 * 360 - 90;
+			$('#my-clock-hands .my-clock-hands-hour').css('transform', 'translate(0, -50%) rotate(' + hours_rotate + 'deg)');
+			$('#my-clock-hands .my-clock-hands-minute').css('transform', 'translate(0, -50%) rotate(' + minutes_rotate + 'deg)');
+			$('#my-clock-hands .my-clock-hands-second').css('transform', 'translate(0, -50%) rotate(' + seconds_rotate + 'deg)');
+		}
+		/* 计算园极点坐标结束 */
+		drawTicks();
+		drawTimes();
+		timeInit();
+	</script>
+</body>
+</html>

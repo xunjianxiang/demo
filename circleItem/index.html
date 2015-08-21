@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<meta charset='UTF-8'>
+	<title>径向菜单</title>
+	<link rel="stylesheet" href="index.css">
+</head>
+<body>
+	<div class='menu-box'>
+		<div class='menu-btn'><span>菜单</span></div>
+		<div class='menu-container'>
+			<a>菜单1</a>
+			<a>菜单2</a>
+			<a>菜单3</a>
+			<a>菜单4</a>
+			<a>菜单5</a>
+		</div>
+	</div>
+	<script src='../jquery-2.1.4.min.js'></script>
+	<script>
+		function getPoiontPosition () {
+			var R = $('.menu-box').width() / 2,
+				// r = $('.menu-box .menu-btn').width() / 2 - 2,
+				// m = (R + r) / 2,
+				items = $('.menu-container').find('a'),
+				itemLength = $('.menu-container').find('a').length,
+				startDeg = 180,		/* 扇形菜单角度从180开始 */
+				// startDeg = 0,
+				endDeg = 360,
+				separateDeg = (endDeg - startDeg) / (itemLength - 1);  /* 扇形菜单需要间隔需要减去1 */
+				// separateDeg = (endDeg - startDeg) / itemLength;
+			console.log(items);
+			for (var i = 0; i < itemLength; i++) {
+				var deg = (startDeg + separateDeg * i) * Math.PI / 180,    /* 相对于X轴的正向夹角 转化为弧度 */
+					px = R * Math.cos(deg),
+					py = R * Math.sin(deg),
+					x = px + R,
+					y = py + R;
+				$(items[i]).css('left', x + 'px');
+				$(items[i]).css('top', y + 'px');
+				console.log(x , y);
+			}
+		}
+		getPoiontPosition();
+		$('.menu-box .menu-btn span').on('click', function () {
+			$('.menu-box .menu-container a').addClass('active')
+		})
+	</script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+$color: (forestgreen, cornflowerblue, orange, slategray, rebeccapurple, brown)
+body
+	margin: 0
+	padding: 0
+	background-color: #292a38
+	color: #EEE
+	-webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	-o-user-select: none
+
+.menu-box, .menu-box .menu-btn span, .menu-box .menu-container a
+	position: absolute
+	left: 50%
+	top: 50%	
+
+	-webkit-transform: translate(-50%, -50%)
+	-moz-transform: translate(-50%, -50%)
+	-ms-transform: translate(-50%, -50%)
+	-o-transform: translate(-50%, -50%)
+	transform: translate(-50%, -50%)
+
+	-webkit-border-radius: 100%
+	-moz-border-radius: 100%
+	-ms-border-radius: 100%
+	-o-border-radius: 100%
+	border-radius: 100%
+.menu-box, .menu-container
+	width: 200px
+	height: 200px
+
+.menu-box .menu-btn span, .menu-box .menu-container a
+	width: 50px
+	line-height: 50px
+	text-align: center
+	
+	cursor: pointer
+	display: block
+
+.menu-box
+	.menu-btn
+		span
+			background-color: nth($color, 1)
+	.menu-container
+		a
+			-webkit-transform: scale(0.01) translate(-50%, -50%)
+			-moz-transform: scale(0.01) translate(-50%, -50%)
+			-ms-transform: scale(0.01) translate(-50%, -50%)
+			-o-transform: scale(0.01) translate(-50%, -50%)
+			transform: scale(0.01) translate(-50%, -50%)
+			opacity: 0
+			@for $i from 1 to 6
+				&:nth-of-type(#{$i})
+					background-color: nth($color, $i + 1)
+			&.active
+				-webkit-transform: scale(1) translate(-50%, -50%)
+				-moz-transform: scale(1) translate(-50%, -50%)
+				-ms-transform: scale(1) translate(-50%, -50%)
+				-o-transform: scale(1) translate(-50%, -50%)
+				transform: scale(1) translate(-50%, -50%)
+				opacity: 1
+				@for $i from 1 to 6
+					&:nth-of-type(#{$i})
+						-webkit-transform-origin: 0 0
+						-moz-transform-origin: 0 0
+						-ms-transform-origin: 0 0
+						-o-transform-origin: 0 0
+						transform-origin: 0 0
+
+						-webkit-transition: all .4s #{$i / 10}s
+						-moz-transition: all .4s #{$i / 10}s
+						-ms-transition: all .4s #{$i / 10}s
+						-o-transition: all .4s #{$i / 10}s
+						transition: all .4s #{$i / 10}s
